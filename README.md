@@ -3,6 +3,7 @@
 magiXOR - a simple to use string encryption header file. 
 
 ![magiXOR](https://github.com/REVRBE/magiXOR/assets/129604052/2f79210d-4b4f-4294-987a-4756e7f84d2d)
+![IDA](https://github.com/REVRBE/magiXOR/assets/129604052/6782067e-6363-4832-be34-138d4c983dad)
 
 ## Features
 
