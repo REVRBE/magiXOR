@@ -112,6 +112,8 @@ magiXOR - a simple to use string encryption header file.
     std::cout << magiXOR("Compile-time decrypted std::string_view: ").decrypt() << str15 << std::endl;
 ```
 
+11. View 'main.cpp' for all supported datatypes.
+
 ## Requirements
 
 magiXOR requires a C++ compiler that supports C++11 or later.
