@@ -80,11 +80,58 @@ int main()
 
     // Compile-time encryption for std::string_view datatype
     std::string_view str14 = magiXOR("Testing std::string_view").encrypt();
-    std::cout << magiXOR("Encrypted std::string_view: ").decrypt() << str14 << std::endl;
+    std::cout << magiXOR("Encrypted string_view: ").decrypt() << str14 << std::endl;
 
     // Compile-time decryption for std::string_view datatype
     std::string_view str15 = magiXOR("Decrypted data").decrypt();
     std::cout << magiXOR("Decrypted std::string_view: ").decrypt() << str15 << std::endl;
+    
+    char16_t c2 = magiXOR('X').encrypt();
+    std::cout << "Encrypted char16_t: ";
+    std::cout.write(reinterpret_cast<const char*>(&c2), sizeof(c2));
+    std::cout << std::endl;
+
+    char16_t c3 = magiXOR('Y').decrypt();
+    std::cout << "Decrypted char16_t: ";
+    std::cout.write(reinterpret_cast<const char*>(&c3), sizeof(c3));
+    std::cout << std::endl;
+
+    char32_t c4 = magiXOR('Z').encrypt();
+    std::cout << "Encrypted char32_t: ";
+    std::cout.write(reinterpret_cast<const char*>(&c4), sizeof(c4));
+    std::cout << std::endl;
+
+    char32_t c5 = magiXOR('$').decrypt();
+    std::cout << "Decrypted char32_t: ";
+    std::cout.write(reinterpret_cast<const char*>(&c5), sizeof(c5));
+    std::cout << std::endl;
+
+    // Working on support for u16string and u32string
+    //std::u16string str16 = magiXOR(u"Mega zzZzzz").encrypt();
+    //std::cout << "Encrypted u16string: ";
+    //std::cout.write(reinterpret_cast<const char*>(&str16), sizeof(str16));
+    //std::cout << std::endl;
+
+    //std::u16string str17 = magiXOR(u"Lol").encrypt();
+    //std::cout << "Decrypted u16string: ";
+    //std::cout.write(reinterpret_cast<const char*>(&str17), sizeof(str17));
+    //std::cout << std::endl;
+
+    //std::u32string str18 = magiXOR(U"Mega mind").encrypt();
+    //std::cout << "Encrypted u32string: ";
+    //std::cout.write(reinterpret_cast<const char*>(&str18), sizeof(str18));
+    //std::cout << std::endl;
+
+    //std::u32string str19 = magiXOR(U"Sleepy Joe").decrypt();
+    //std::cout << "Decrypted u32string: ";
+    //std::cout.write(reinterpret_cast<const char*>(&str19), sizeof(str19));
+    //std::cout << std::endl;
+
+    std::basic_string str20 = magiXOR("Donald Duck").encrypt();
+    std::cout << magiXOR("Encrypted basic_string: ").decrypt() << str20 << std::endl;
+
+    std::basic_string str21 = magiXOR("bOb").decrypt();
+    std::cout << magiXOR("Decrypted basic_string: ").decrypt() << str21 << std::endl;
 
     return 0;
 }
