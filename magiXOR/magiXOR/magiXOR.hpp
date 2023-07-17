@@ -2,58 +2,45 @@
 // magiXOR by REVRBE
 // 
 // Compile-time XOR string encryption using CBC
-// Dynamic key generation using __TIME__ macro
+// Dynamic key generation using __TIME__ macro.
 // Simple to use
 //
 #include <iostream>
 #include <string>
 #include <cstring>
 
-// Function pointer type for obfuscated key generation
-typedef wchar_t (*GenerateKeyFunc)();
+namespace magiObfuscation {
+    // Function pointer type for obfuscated key generation
+    typedef wchar_t (*GenerateKeyFunc)();
 
-// Obfuscation for generating secret key
-constexpr wchar_t obfuscatedSecretKey()
-{
-    constexpr GenerateKeyFunc generateSecretKey = []() -> wchar_t {
-        constexpr char time[] = __TIME__;
-        constexpr int keyLength = 64;
-        wchar_t secretKey[keyLength + 1] = { 0 };
-
-        // Extract minutes component from __TIME__
-        constexpr int minutes = (time[3] - '0') * 10 + (time[4] - '0');
-
-        for (int i = 0; i < keyLength; ++i)
+    namespace {
+        // Obfuscation for generating secret key
+        constexpr wchar_t GenerateSecretKey()
         {
-            secretKey[i] = time[(i % minutes) * 3];
+            constexpr char time[] = __TIME__;
+            wchar_t secretKey = time[1] + time[3] + time[6]; 
+
+            return secretKey;
         }
 
-        return *secretKey;
-    };
-
-    return generateSecretKey();
-}
-
-// Obfuscation for generating obfuscation key
-constexpr wchar_t obfuscatedObfuscationKey()
-{
-    constexpr GenerateKeyFunc generateObfuscationKey = []() -> wchar_t {
-        constexpr char time[] = __TIME__;
-        constexpr int keyLength = 64;
-        wchar_t obfuscationKey[keyLength + 1] = { 0 };
-
-        // Extract minutes component from __TIME__
-        constexpr int minutes = (time[3] - '0') * 10 + (time[4] - '0');
-
-        for (int i = 0; i < keyLength; ++i)
+        constexpr wchar_t GenerateObfuscationKey()
         {
-            obfuscationKey[i] = time[((i + 2) % minutes) * 3];
+            constexpr char time[] = __TIME__;
+            wchar_t obfuscationKey = time[4] + time[5] / time[2] / time[0]; 
+
+            return obfuscationKey;
         }
+    }
 
-        return *obfuscationKey;
-    };
+    constexpr wchar_t obfuscatedSecretKey()
+    {
+        return GenerateSecretKey();
+    }
 
-    return generateObfuscationKey();
+    constexpr wchar_t obfuscatedObfuscationKey()
+    {
+        return GenerateObfuscationKey();
+    }
 }
 
 // Compile-time XOR encryption for a string literal
@@ -62,7 +49,7 @@ class magiXOR
 {
 public:
     constexpr magiXOR(const T(&str)[N])
-        : secretKey(obfuscatedSecretKey()), obfuscationKey(obfuscatedObfuscationKey())
+        : secretKey(magiObfuscation::obfuscatedSecretKey()), obfuscationKey(magiObfuscation::obfuscatedObfuscationKey())
     {
         encryptString(str);
     }
@@ -130,7 +117,7 @@ class magiXOR<char, 2>
 {
 public:
     constexpr magiXOR(const char ch)
-        : secretKey(obfuscatedSecretKey()), obfuscationKey(obfuscatedObfuscationKey()), encryptedChar(encryptChar(ch))
+        : secretKey(magiObfuscation::obfuscatedSecretKey()), obfuscationKey(magiObfuscation::obfuscatedObfuscationKey()), encryptedChar(encryptChar(ch))
     {}
 
     char decrypt() const
@@ -172,7 +159,7 @@ class magiXOR<wchar_t, 2>
 {
 public:
     constexpr magiXOR(const wchar_t ch)
-        : secretKey(obfuscatedSecretKey()), obfuscationKey(obfuscatedObfuscationKey()), encryptedChar(encryptChar(ch))
+        : secretKey(magiObfuscation::obfuscatedSecretKey()), obfuscationKey(magiObfuscation::obfuscatedObfuscationKey()), encryptedChar(encryptChar(ch))
     {}
 
     wchar_t decrypt() const
@@ -226,7 +213,7 @@ template <std::size_t N>
 const char** decryptArray(const char* (&arr)[N])
 {
     const char** decryptedArray = new const char* [N];
-    const wchar_t* previousBlock = obfuscatedSecretKey();
+    const wchar_t* previousBlock = magiObfuscation::obfuscatedSecretKey();
 
     for (std::size_t i = 0; i < N; ++i)
     {
