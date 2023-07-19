@@ -123,7 +123,7 @@ magiXOR requires a C++ compiler that supports C++11 or later.
 - [ ] Adding kernel-mode support
 - [x] Adding functionality for more data types (check 'main.cpp' to see supported datatypes)
 - [x] Increasing the complexity for the XOR encryption (changed from EBC to CBC to provide stronger encryption)
-- [ ] Adding runtime decryption to avoid the strings being visible on decompilation
+- [ ] Adding runtime decryption to avoid the decrypted strings being visible on decompilation
 
 ## Known errors/bugs
 
