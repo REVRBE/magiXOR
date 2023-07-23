@@ -116,7 +116,7 @@ magiXOR - a simple to use string encryption header file.
 
 ## Requirements
 
-magiXOR requires a C++ compiler that supports C++11 or later.
+magiXOR requires a C++ compiler that supports C++17 or later.
 
 ## To-do
 
