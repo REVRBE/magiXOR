@@ -5,6 +5,7 @@
 // Dynamic key generation using __TIME__ macro.
 // Simple to use
 //
+#pragma once
 #include <iostream>
 #include <string>
 #include <cstring>
